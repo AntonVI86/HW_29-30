@@ -1,0 +1,57 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WalletUIView : MonoBehaviour
+{
+    [SerializeField] private CurrencyView _currencyViewPrefab;
+    [SerializeField] private Sprite[] _icon;
+
+    private List<CurrencyView> _currencyViews = new List<CurrencyView>();
+
+    private Wallet _wallet;
+
+    public void Initialize(Wallet wallet)
+    {
+        _wallet = wallet;
+
+        foreach (KeyValuePair<CurrencyType, ReactiveVariable<CurrencyType, int>> item in _wallet.ValueOfCurrency)
+        {
+            item.Value.Changed += OnCurrencyValueChanged;
+        }
+
+        CreateView();
+    }
+
+    public void OnCurrencyValueChanged(CurrencyType type, int value)
+    {
+        foreach (CurrencyView item in _currencyViews)
+        {  
+            if(item.Type == type)
+                item.UpdateInfo(value);
+        }
+    }
+
+    private void CreateView()
+    {
+        int index = 0;
+        CurrencyType type = 0;
+
+        foreach (KeyValuePair<CurrencyType, ReactiveVariable<CurrencyType, int>> item in _wallet.ValueOfCurrency)
+        {
+            CurrencyView view = Instantiate(_currencyViewPrefab, transform);
+            view.Initialize(type,_icon[index], item.Value.Value);
+            _currencyViews.Add(view);
+
+            index++;
+            type++;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        foreach (KeyValuePair<CurrencyType, ReactiveVariable<CurrencyType, int>> item in _wallet.ValueOfCurrency)
+        {
+            item.Value.Changed -= OnCurrencyValueChanged;
+        }
+    }
+}
