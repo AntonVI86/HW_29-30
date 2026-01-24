@@ -10,6 +10,6 @@ public class EnemyView : MonoBehaviour
     private void Start()
     {
         _name.text = _enemy.GetName();
-        _property.text = _enemy.GetStat();
+        _property.text = _enemy.GetStats();
     }
 }

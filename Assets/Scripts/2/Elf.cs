@@ -1,23 +1,25 @@
-using UnityEngine;
-
 public class Elf : Enemy
 {
-    private EnemyType _type;
+    private int _mana;
+    private int _agility;
+    private int _viewRange;
 
-    private float _mana;
-
-    public override void Initialize(EnemyType type, Vector3 position)
+    public void Initialize(ElfSettings settings)
     {
-        _type = type;
-        transform.position = position;
+        _mana = settings.Mana;
+        _agility = settings.Agility;
+        _viewRange = settings.ViewRange;
     }
 
-    public override void SetConfig(EnemySettings settings)
+    public override string GetName() => $"Эльф";
+
+    public override string GetStats()
     {
-        _mana = settings.GetMana(_type);
+        string stats =
+            $"Мана - {_mana}\n" +
+            $"Ловкость - {_agility}\n" +
+            $"Дальность - {_viewRange}";
+
+        return stats;
     }
-
-    public override string GetName() => $"{_type}-Эльф";
-
-    public override string GetStat() => $"Мана - {_mana}";
 }

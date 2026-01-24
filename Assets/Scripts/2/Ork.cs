@@ -1,23 +1,25 @@
-using UnityEngine;
-
 public class Ork : Enemy
 {
-    private EnemyType _type;
+    private int _strength;
+    private int _damage;
+    private int _armor;
 
-    private float _strength;
-
-    public override void Initialize(EnemyType type, Vector3 position)
+    public void Initialize(OrkSettings settings)
     {
-        _type = type;
-        transform.position = position;
+        _strength = settings.Strength;
+        _damage = settings.Damage;
+        _armor = settings.Armor;
     }
 
-    public override void SetConfig(EnemySettings settings)
+    public override string GetName() => $"Орк";
+
+    public override string GetStats() 
     {
-        _strength = settings.GetStrength(_type);
+        string stats = 
+            $"Сила - {_strength}\n" +
+            $"Урон - {_damage}\n" +
+            $"Броня - {_armor}";
+
+        return stats;
     }
-
-    public override string GetName() => $"{_type}-Орк";
-
-    public override string GetStat() => $"Сила - {_strength}";
 }

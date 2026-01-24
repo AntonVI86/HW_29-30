@@ -3,7 +3,7 @@ using UnityEngine;
 public class InventoryExample : MonoBehaviour
 {
     [SerializeField] private InventoryView _inventoryView;
-    [SerializeField] private int _capacity;
+    [SerializeField, Range(0,10)] private int _capacity;
 
     private Inventory _inventory;
 
@@ -36,19 +36,25 @@ public class InventoryExample : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _inventory.RemoveBy("Sword", 4);
+            _inventory.RemoveBy("Sword", 1);
             _inventoryView.Show();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            _inventory.RemoveBy("Shield", 3);
+            _inventory.RemoveBy("Shield", 1);
             _inventoryView.Show();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             _inventory.Add(new Item("Sword"));
+            _inventoryView.Show();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            _inventory.Add(new Item("Shield"));
             _inventoryView.Show();
         }
     }

@@ -1,23 +1,25 @@
-using UnityEngine;
-
 public class Dragon : Enemy
 {
-    private EnemyType _type;
+    private int _damage;
+    private int _health;
+    private int _critRate;
 
-    private float _defense;
-
-    public override void Initialize(EnemyType type, Vector3 position)
+    public void Initialize(DragonSettings settings)
     {
-        _type = type;
-        transform.position = position;
+        _damage = settings.Damage;
+        _health = settings.Health;
+        _critRate = settings.CritRate;
     }
 
-    public override void SetConfig(EnemySettings settings)
+    public override string GetName() => $"Дракон";
+
+    public override string GetStats()
     {
-        _defense = settings.GetDefense(_type);
+        string stats =
+            $"Урон - {_damage}\n" +
+            $"Здоровье - {_health}\n" +
+            $"Крит.шанс - {_critRate}";
+
+        return stats;
     }
-
-    public override string GetName() => $"{_type}-Дракон";
-
-    public override string GetStat() => $"Защита - {_defense}";
 }

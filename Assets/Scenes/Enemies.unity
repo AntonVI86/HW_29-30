@@ -524,50 +524,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d62d633f6b16e048a4ebef3e535200a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefabs:
-  - {fileID: 7459468497275784782, guid: 0a86e7145e55c0041a24b44ddbaa6154, type: 3}
-  - {fileID: 3893285802521520257, guid: 1a8e651b92d512e4f9506b1a51c58948, type: 3}
-  - {fileID: 140999269644517471, guid: 4b5475e7e2bafbe4b9b80f94904bf825, type: 3}
-  _enemySettings:
-  - _enemyConfigs:
-    - <Type>k__BackingField: 0
-      <Strength>k__BackingField: 5
-      <Defense>k__BackingField: 15
-      <Mana>k__BackingField: 2
-    - <Type>k__BackingField: 1
-      <Strength>k__BackingField: 25
-      <Defense>k__BackingField: 1
-      <Mana>k__BackingField: 0
-    - <Type>k__BackingField: 2
-      <Strength>k__BackingField: 0
-      <Defense>k__BackingField: 5
-      <Mana>k__BackingField: 100
-  - _enemyConfigs:
-    - <Type>k__BackingField: 0
-      <Strength>k__BackingField: 10
-      <Defense>k__BackingField: 2
-      <Mana>k__BackingField: 0
-    - <Type>k__BackingField: 1
-      <Strength>k__BackingField: 0
-      <Defense>k__BackingField: 10
-      <Mana>k__BackingField: 5
-    - <Type>k__BackingField: 2
-      <Strength>k__BackingField: 7
-      <Defense>k__BackingField: 3
-      <Mana>k__BackingField: 56
-  - _enemyConfigs:
-    - <Type>k__BackingField: 0
-      <Strength>k__BackingField: 150
-      <Defense>k__BackingField: 300
-      <Mana>k__BackingField: 2
-    - <Type>k__BackingField: 1
-      <Strength>k__BackingField: 200
-      <Defense>k__BackingField: 500
-      <Mana>k__BackingField: 3
-    - <Type>k__BackingField: 2
-      <Strength>k__BackingField: 10
-      <Defense>k__BackingField: 100
-      <Mana>k__BackingField: 10000
+  _orkPrefab: {fileID: 140999269644517471, guid: 4b5475e7e2bafbe4b9b80f94904bf825,
+    type: 3}
+  _elfPrefab: {fileID: 3893285802521520257, guid: 1a8e651b92d512e4f9506b1a51c58948,
+    type: 3}
+  _dragonPrefab: {fileID: 7459468497275784782, guid: 0a86e7145e55c0041a24b44ddbaa6154,
+    type: 3}
+  _orkSettings:
+  - <Strength>k__BackingField: 5
+    <Damage>k__BackingField: 10
+    <Armor>k__BackingField: 3
+  - <Strength>k__BackingField: 20
+    <Damage>k__BackingField: 56
+    <Armor>k__BackingField: 10
+  _elfSettings:
+  - <Mana>k__BackingField: 50
+    <Agility>k__BackingField: 30
+    <ViewRange>k__BackingField: 10
+  - <Mana>k__BackingField: 140
+    <Agility>k__BackingField: 1
+    <ViewRange>k__BackingField: 5
+  _dragonSettings:
+  - <Damage>k__BackingField: 130
+    <Health>k__BackingField: 500
+    <CritRate>k__BackingField: 5
+  - <Damage>k__BackingField: 450
+    <Health>k__BackingField: 1500
+    <CritRate>k__BackingField: 25
 --- !u!4 &1307972652
 Transform:
   m_ObjectHideFlags: 0
@@ -577,7 +560,7 @@ Transform:
   m_GameObject: {fileID: 1307972650}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.4766335, y: -0.3190291, z: -1.8752742}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -1,32 +1,41 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class Spawner
 {
-    private List<Enemy> _enemyPrefabs;
-    private List<EnemySettings> _enemySettings;
-    private float _defaultPositionX = 0;
-    private float _offset = 5f;
+    private Ork _orkPrefab;
+    private Elf _elfPrefab;
+    private Dragon _dragonPrefab;
 
-    public Spawner(List<EnemySettings> enemySettings, List<Enemy> enemyPrefabs)
+    public Spawner(Ork orkPrefab, Elf elfPrefab, Dragon dragonPrefab)
     {
-        _enemySettings = enemySettings;
-        _enemyPrefabs = enemyPrefabs;
+        _orkPrefab = orkPrefab;
+        _elfPrefab = elfPrefab;
+        _dragonPrefab = dragonPrefab;
     }
 
-    public void Spawn()
+    public Enemy SpawnEnemy(EnemySettings settings, Vector3 position)
     {
-        for (int i = 0; i < _enemySettings.Count; i++)
+        switch (settings)
         {
-            for (int j = 0; j < _enemyPrefabs.Count; j++)
-            {
-                _defaultPositionX += _offset;
-                Vector3 newPosition = new Vector3(_defaultPositionX, 0,0);
+            case OrkSettings orkSettings:
+                Ork ork = Object.Instantiate(_orkPrefab, position, Quaternion.identity);
+                ork.Initialize(orkSettings);
+                return ork;
 
-                Enemy enemy = Object.Instantiate(_enemyPrefabs[j]);
-                enemy.Initialize((EnemyType)i, newPosition);
-                enemy.SetConfig(_enemySettings[i]);
-            }
+            case ElfSettings elfSettings:
+                Elf elf = Object.Instantiate(_elfPrefab, position, Quaternion.identity);
+                elf.Initialize(elfSettings);
+                return elf;
+
+            case DragonSettings dragonSettings:
+                Dragon dragon = Object.Instantiate(_dragonPrefab, position, Quaternion.identity);
+                dragon.Initialize(dragonSettings);
+                return dragon;
+
+            default:
+                throw new ArgumentOutOfRangeException(nameof(settings), settings, null);
         }
     }
 }
