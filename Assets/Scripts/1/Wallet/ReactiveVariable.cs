@@ -23,5 +23,4 @@ public class ReactiveVariable<CurrencyType, T>
             Changed?.Invoke(_type, _value);
         }
     }
-
 }

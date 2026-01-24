@@ -1,22 +1,28 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HeartTimerView : TimerView
 {
-    [SerializeField] private Image _heart;
+    private Timer _timer;
 
     private List<Image> _hearts = new List<Image>();
 
+    [SerializeField] private Image _heart;
+
     public override void Initialize(Timer timer)
     {
-        Timer = timer;
+        _timer = timer;
 
-        for (int i = 0; i < timer.CurrentValue; i++)
+        for (int i = 0; i < _timer.CurrentValue.Value; i++)
         {
             Image newHeart = Instantiate(_heart, transform);
             _hearts.Add(newHeart);
         }
+
+        _timer.CurrentValue.Changed += OnValueChanged;
+        _timer.Reseted += OnReseted;
     }
 
     public override void OnReseted()
@@ -30,8 +36,12 @@ public class HeartTimerView : TimerView
     public override void OnValueChanged(float value)
     {
         if(_hearts.Count > Mathf.CeilToInt(value))
-        {
             _hearts[Mathf.CeilToInt(value)].gameObject.SetActive(false);
-        }   
+    }
+
+    public void OnDestroy()
+    {
+        _timer.CurrentValue.Changed -= OnValueChanged;
+        _timer.Reseted -= OnReseted;
     }
 }

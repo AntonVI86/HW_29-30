@@ -1,26 +1,22 @@
 using UnityEngine;
 
-namespace InventoryHomework
+public class InventoryView : MonoBehaviour
 {
-    public class InventoryView
+    private Inventory _inventory;
+
+    public void Initialize(Inventory inventory)
     {
-        private Inventory _inventory;
+        _inventory = inventory;
+    }
 
-        public InventoryView(Inventory inventory)
+    public void Show()
+    {
+        foreach (Cell cell in _inventory.Cells)
         {
-            _inventory = inventory;
-            _inventory.Changed += ShowItems;
-        }
+            if (cell.Item == null)
+                return;
 
-        public void ShowItems()
-        {
-            foreach (Item item in _inventory.Items)
-                Debug.Log($"{item.Name} - {item.Count}");
-        }
-
-        public void Dispose()
-        {
-            _inventory.Changed -= ShowItems;
+            Debug.Log($"{cell.Item.Name} - {cell.Count}");
         }
     }
 }

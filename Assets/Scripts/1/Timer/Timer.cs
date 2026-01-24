@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class Timer
 {
-    public event Action<float> ValueChanged;
     public event Action Reseted;
 
     private MonoBehaviour _behaviour;
+
+    private ReactiveVariables<float> _currentValue = new();
+
     private float _defaultValue;
-    private float _currentValue;
 
     private Coroutine _coroutine;
 
-    public float CurrentValue => _currentValue;
+    public ReactiveVariables<float> CurrentValue => _currentValue;
 
-    public Timer(MonoBehaviour behaviour, float defaultValue)
+    public Timer(MonoBehaviour behaviour, ReactiveVariables<float> value)
     {
-        _defaultValue = defaultValue;
-        _currentValue = _defaultValue;
+        _defaultValue = value.Value;
+        _currentValue.Value = _defaultValue;
         _behaviour = behaviour;
     }
 
@@ -30,14 +31,15 @@ public class Timer
         _coroutine = _behaviour.StartCoroutine(Process());
     }
 
-    public void Stop() 
+    public void Stop()
     {
-        if (_coroutine != null)            
-            _behaviour.StopCoroutine(_coroutine);   
-    } 
+        if (_coroutine != null)
+            _behaviour.StopCoroutine(_coroutine);
+    }
+
     public void Reset()
     {
-        _currentValue = _defaultValue;
+        _currentValue.Value = _defaultValue;
         Reseted?.Invoke();
 
         Stop();
@@ -47,10 +49,9 @@ public class Timer
 
     private IEnumerator Process()
     {
-        while (_currentValue > 0)
+        while (_currentValue.Value > 0)
         {
-            _currentValue -= Time.deltaTime;
-            ValueChanged?.Invoke(_currentValue);
+            _currentValue.Value -= Time.deltaTime;
             yield return null;
         }
     }

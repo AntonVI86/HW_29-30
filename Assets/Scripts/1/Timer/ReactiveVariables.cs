@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class ReactiveVariables : MonoBehaviour
+public class ReactiveVariables<T>
 {
-    // Start is called before the first frame update
-    void Start()
+    public event Action<T> Changed;
+    private T _value;
+
+    public ReactiveVariables(T value)
     {
-        
+        _value = value;
     }
 
-    // Update is called once per frame
-    void Update()
+    public ReactiveVariables() => _value = default(T);
+
+    public T Value
     {
-        
+        get => _value;
+        set
+        {
+            _value = value;
+            Changed?.Invoke(_value);
+        }
     }
 }
