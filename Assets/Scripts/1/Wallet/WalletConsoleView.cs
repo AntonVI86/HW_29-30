@@ -9,25 +9,21 @@ public class WalletConsoleView : MonoBehaviour
     {
         _wallet = wallet;
 
-        foreach (KeyValuePair<CurrencyType, ReactiveVariable<CurrencyType, int>> item in _wallet.ValueOfCurrency)
-        {
-            item.Value.Changed += OnCurrencyValueChanged;
-        }
+        foreach (ReactiveVariable<int> value in _wallet.Values)
+            value.Changed += OnCurrencyValueChanged;
     }
 
-    public void OnCurrencyValueChanged(CurrencyType type, int value)
+    public void OnCurrencyValueChanged(int oldValue, int value)
     {
-        foreach (KeyValuePair<CurrencyType, ReactiveVariable<CurrencyType, int>> item in _wallet.ValueOfCurrency)
+        foreach (ReactiveVariable<int> item in _wallet.Values)
         {
-            Debug.Log(item.Key + " - " + item.Value.Value);
+            //Debug.Log(item.Key + " - " + item.Value);
         }
     }
 
     private void OnDestroy()
     {
-        foreach (KeyValuePair<CurrencyType, ReactiveVariable<CurrencyType, int>> item in _wallet.ValueOfCurrency)
-        {
-            item.Value.Changed -= OnCurrencyValueChanged;
-        }
+        foreach (ReactiveVariable<int> value in _wallet.Values)
+            value.Changed -= OnCurrencyValueChanged;
     }
 }

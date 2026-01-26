@@ -8,16 +8,16 @@ public class WalletExample : MonoBehaviour
 
     private Wallet _wallet;
 
-    private Dictionary<CurrencyType, ReactiveVariable<CurrencyType, int>> _valuesOfCurrencies = new();
+    private Dictionary<CurrencyType, ReactiveVariable<int>> _valuesOfCurrencies = new();
 
     private int _minValue = 1;
     private int _maxValue = 5;
 
     private void Awake()
     {
-        _valuesOfCurrencies.Add(CurrencyType.Coin, new ReactiveVariable<CurrencyType, int>(CurrencyType.Coin, 10)) ;
-        _valuesOfCurrencies.Add(CurrencyType.Diamond, new ReactiveVariable<CurrencyType, int>(CurrencyType.Diamond, 5));
-        _valuesOfCurrencies.Add(CurrencyType.Food, new ReactiveVariable<CurrencyType, int>(CurrencyType.Food, 10));
+        _valuesOfCurrencies.Add(CurrencyType.Coin, new ReactiveVariable<int>(10)) ;
+        _valuesOfCurrencies.Add(CurrencyType.Diamond, new ReactiveVariable<int>(5));
+        _valuesOfCurrencies.Add(CurrencyType.Food, new ReactiveVariable<int>(10));
 
         _wallet = new Wallet(_valuesOfCurrencies);
 

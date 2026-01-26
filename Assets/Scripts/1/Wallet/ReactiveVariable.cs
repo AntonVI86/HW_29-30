@@ -1,14 +1,12 @@
 using System;
 
-public class ReactiveVariable<CurrencyType, T>
+public class ReactiveVariable<T> : IReadOnlyVariable<T> where T : IEquatable<T>
 {
-    public event Action<CurrencyType, T> Changed;
+    public event Action<T, T> Changed;
     private T _value;
-    private CurrencyType _type;
 
-    public ReactiveVariable(CurrencyType type, T value)
+    public ReactiveVariable(T value)
     {
-        _type = type;
         _value = value;   
     } 
 
@@ -19,8 +17,12 @@ public class ReactiveVariable<CurrencyType, T>
         get => _value;
         set
         {
+            T oldValue = _value;
+
             _value = value;
-            Changed?.Invoke(_type, _value);
+
+            if (_value.Equals(oldValue) == false)
+                Changed?.Invoke(oldValue, _value);
         }
     }
 }

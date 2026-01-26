@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class Wallet
 {
-    private Dictionary<CurrencyType, ReactiveVariable<CurrencyType, int>> _valuesOfCurrencies = new Dictionary<CurrencyType, ReactiveVariable<CurrencyType, int>>();
+    private Dictionary<CurrencyType, ReactiveVariable<int>> _valuesOfCurrencies = new Dictionary<CurrencyType, ReactiveVariable<int>>();
 
-    public Wallet(Dictionary<CurrencyType, ReactiveVariable<CurrencyType, int>> valuesOfCurrencies)
+    public Wallet(Dictionary<CurrencyType, ReactiveVariable<int>> valuesOfCurrencies)
     {
         _valuesOfCurrencies = new(valuesOfCurrencies);
     }
 
-    public Dictionary<CurrencyType, ReactiveVariable<CurrencyType, int>> ValueOfCurrency => _valuesOfCurrencies;
+    public IEnumerable<ReactiveVariable<int>> Values => _valuesOfCurrencies.Values;
 
     public void AddValue(CurrencyType type, int receivedValue)
     {
@@ -37,7 +38,7 @@ public class Wallet
         }
     }
 
-    private bool IsCurrencyValueEnough(CurrencyType type, int receivedValue)
+    public bool IsCurrencyValueEnough(CurrencyType type, int receivedValue)
     {
         int currentValue = _valuesOfCurrencies[type].Value;
 
