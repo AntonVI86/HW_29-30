@@ -13,10 +13,12 @@ public class InventoryView : MonoBehaviour
     {
         foreach (Cell cell in _inventory.Cells)
         {
-            if (cell.Item == null)
+            if (cell.CurrentItem == null)
+            {
                 return;
+            }
 
-            Debug.Log($"{cell.Item.Name} - {cell.Count}");
+            Debug.Log($"{cell.CurrentItem.Name} - {cell.Count}");
         }
     }
 }

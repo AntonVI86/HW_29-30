@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public class Wallet
 {
@@ -14,8 +14,7 @@ public class Wallet
 
     public void AddValue(CurrencyType type, int receivedValue)
     {
-        if (receivedValue <= 0)
-            return;
+        CheckReceivedValue(receivedValue);
 
         int currentValue = _valuesOfCurrencies[type].Value;
         int result = currentValue + receivedValue;
@@ -25,8 +24,7 @@ public class Wallet
 
     public void SubtractValue(CurrencyType type, int receivedValue)
     {
-        if (receivedValue <= 0)
-            return;
+        CheckReceivedValue(receivedValue);
 
         int currentValue = _valuesOfCurrencies[type].Value;
 
@@ -40,11 +38,21 @@ public class Wallet
 
     public bool IsCurrencyValueEnough(CurrencyType type, int receivedValue)
     {
+        CheckReceivedValue(receivedValue);
+
         int currentValue = _valuesOfCurrencies[type].Value;
 
         if (receivedValue <= currentValue)
             return true;
 
         return false;
+    }
+
+    private bool CheckReceivedValue(int receivedValue)
+    {
+        if (receivedValue <= 0)
+            throw new ArgumentOutOfRangeException(nameof(receivedValue), "Значение должно быть больше 0");
+
+        return true;
     }
 }

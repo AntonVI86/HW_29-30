@@ -27,7 +27,7 @@ public class InventoryExample : MonoBehaviour
         _inventory.Add(new Item("Shield"));
         _inventory.Add(new Item("Shield"));
 
-        _inventory.Add(new Item("Potion"));
+        //_inventory.Add(new Item("Potion"));
 
         _inventoryView.Show();
     }
@@ -36,13 +36,17 @@ public class InventoryExample : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _inventory.RemoveBy("Sword", 1);
+            if (_inventory.TryRemoveBy("Sword", 1))
+                Debug.Log("Предмет удалён из инвентаря");
+
             _inventoryView.Show();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            _inventory.RemoveBy("Shield", 1);
+            if(_inventory.TryRemoveBy("Shield", 1))
+                Debug.Log("Предмет удалён из инвентаря");
+
             _inventoryView.Show();
         }
 
@@ -55,6 +59,12 @@ public class InventoryExample : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             _inventory.Add(new Item("Shield"));
+            _inventoryView.Show();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            _inventory.GetItemsBy("Sword", 1);
             _inventoryView.Show();
         }
     }

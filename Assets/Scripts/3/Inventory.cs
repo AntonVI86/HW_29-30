@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,19 +13,17 @@ public class Inventory
         _maxSize = maxSize;
 
         for (int i = 0; i < _maxSize; i++)
-        {
             _cells.Add(new Cell());
-        }
     }
 
     public int CurrentSize => _cells.Sum(cell => cell.Count); 
 
-    public IReadOnlyList<Cell> Cells => _cells;
+    public IReadOnlyList<IReadOnlyCell> Cells => _cells;
 
     public void Add(Item item)
     {
-        if (CanAddItem() == false) 
-            return;       
+        if (CanAddItem() == false)
+            throw new ArgumentException("Инвентарь полон");
 
         foreach (Cell cell in _cells)
         {
@@ -36,35 +35,32 @@ public class Inventory
         }
     }
 
-    public void RemoveBy(string name, int count)
+    public bool TryRemoveBy(string name, int count)
     {
         foreach (Cell cell in _cells)
         {
-            if (cell.Item == null)
-                return;
+            if (cell.CurrentItem == null)
+                continue;
 
-            if(cell.Item.Name == name)
+            if(cell.CurrentItem.Name == name)
             {
                 if (cell.Count >= count)
                 {
                     cell.RemoveItem(count);
-                    return;
+                    return true;
                 }
             }
-
-            UnityEngine.Debug.Log("Предмет не найден или его не достаточно");
         }
+        
+        return false;
     }
 
     public List<Cell> GetItemsBy(string name, int count)
     {
-        _cells = new List<Cell>();
+        Cell cell = _cells.FirstOrDefault(cell => cell.CurrentItem.Name == name);
 
-        for (int i = 0; i < count; i++)
-        {
-            Cell cell = _cells.FirstOrDefault(cell => cell.Item.Name == name);
+        if (cell != null)
             cell.RemoveItem(count);
-        }
 
         return _cells;
     }

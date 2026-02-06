@@ -1,10 +1,11 @@
-public class Cell
+public class Cell : IReadOnlyCell
 {
     private Item _item;
     private int _count;
 
-    public Item Item => _item;
     public int Count => _count;
+
+    public Item CurrentItem => _item;
 
     public bool CanAddItem(Item item)
     {
