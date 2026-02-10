@@ -6,7 +6,7 @@ public class TimerExample : MonoBehaviour
 
     [SerializeField] private TimerView[] _timerView;
 
-    private ReactiveVariables<float> _time = new(10f);
+    private ReactiveVariable<float> _time = new(10f);
 
     private void Awake()
     {

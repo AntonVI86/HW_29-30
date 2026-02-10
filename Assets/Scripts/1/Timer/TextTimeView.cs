@@ -20,7 +20,7 @@ public class TextTimeView : TimerView
         _view.text = _timer.CurrentValue.Value.ToString("0.0");
     }
 
-    public override void OnValueChanged(float value)
+    public override void OnValueChanged(float oldValue, float value)
     {
         _view.text = _timer.CurrentValue.Value.ToString("0.0");
     }

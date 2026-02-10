@@ -8,15 +8,15 @@ public class Timer
 
     private MonoBehaviour _behaviour;
 
-    private ReactiveVariables<float> _currentValue = new();
+    private ReactiveVariable<float> _currentValue = new();
 
     private float _defaultValue;
 
     private Coroutine _coroutine;
 
-    public ReactiveVariables<float> CurrentValue => _currentValue;
+    public ReactiveVariable<float> CurrentValue => _currentValue;
 
-    public Timer(MonoBehaviour behaviour, ReactiveVariables<float> value)
+    public Timer(MonoBehaviour behaviour, ReactiveVariable<float> value)
     {
         _defaultValue = value.Value;
         _currentValue.Value = _defaultValue;

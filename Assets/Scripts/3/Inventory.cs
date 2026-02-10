@@ -12,8 +12,7 @@ public class Inventory
     {
         _maxSize = maxSize;
 
-        for (int i = 0; i < _maxSize; i++)
-            _cells.Add(new Cell());
+        _cells.Add(new Cell());
     }
 
     public int CurrentSize => _cells.Sum(cell => cell.Count); 
@@ -33,11 +32,15 @@ public class Inventory
                 return;
             }
         }
+
+        Cell newCell = new Cell();
+        _cells.Add(newCell);
+        newCell.AddItem(item);
     }
 
     public bool TryRemoveBy(string name, int count)
     {
-        foreach (Cell cell in _cells)
+        foreach (Cell cell in Cells)
         {
             if (cell.CurrentItem == null)
                 continue;
@@ -55,12 +58,12 @@ public class Inventory
         return false;
     }
 
-    public List<Cell> GetItemsBy(string name, int count)
+    public IReadOnlyList<Cell> GetItemsBy(string name, int count)
     {
         Cell cell = _cells.FirstOrDefault(cell => cell.CurrentItem.Name == name);
 
-        if (cell != null)
-            cell.RemoveItem(count);
+        if (TryRemoveBy(name, count) == false)
+            throw new ArgumentException("Предмета с таким именем нет или его количества в ячейке недостаточно");
 
         return _cells;
     }

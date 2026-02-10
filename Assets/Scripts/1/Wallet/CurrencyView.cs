@@ -15,6 +15,7 @@ public class CurrencyView : MonoBehaviour
     {
         _picture.sprite = sprite;
         _value.text = value.ToString();
+
         _type = type;
     }
 

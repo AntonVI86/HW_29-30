@@ -64,7 +64,7 @@ public class InventoryExample : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            _inventory.GetItemsBy("Sword", 1);
+            _inventory.GetItemsBy("Sword", 5);
             _inventoryView.Show();
         }
     }

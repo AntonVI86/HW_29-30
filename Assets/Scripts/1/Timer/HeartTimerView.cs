@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,7 +32,7 @@ public class HeartTimerView : TimerView
         }
     }
 
-    public override void OnValueChanged(float value)
+    public override void OnValueChanged(float OldValue, float value)
     {
         if(_hearts.Count > Mathf.CeilToInt(value))
             _hearts[Mathf.CeilToInt(value)].gameObject.SetActive(false);

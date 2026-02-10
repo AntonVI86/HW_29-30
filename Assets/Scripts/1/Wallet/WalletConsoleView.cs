@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class WalletConsoleView : MonoBehaviour
@@ -16,9 +14,10 @@ public class WalletConsoleView : MonoBehaviour
 
     public void OnCurrencyValueChanged(int oldValue, int value)
     {
-        foreach (ReactiveVariable<int> item in _wallet.Values)
+        foreach (CurrencyType item in _wallet.Key)
         {
-            //Debug.Log(item.Key + " - " + item.Value);
+            if(_wallet.TryGetValue(item, out ReactiveVariable<int> findValue))
+                Debug.Log(item + " - " + findValue.Value);
         }
     }
 

@@ -26,7 +26,7 @@ public class SliderTimeView : TimerView
         _timeBar.value = _timer.CurrentValue.Value;
     }
 
-    public override void OnValueChanged(float value)
+    public override void OnValueChanged(float OldValue, float value)
     {
         _timeBar.value = Mathf.Lerp(_timeBar.value, _timer.CurrentValue.Value, _speed * Time.deltaTime);
     }

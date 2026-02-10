@@ -11,6 +11,7 @@ public class Wallet
     }
 
     public IEnumerable<ReactiveVariable<int>> Values => _valuesOfCurrencies.Values;
+    public IEnumerable<CurrencyType> Key => _valuesOfCurrencies.Keys;
 
     public void AddValue(CurrencyType type, int receivedValue)
     {
@@ -45,6 +46,21 @@ public class Wallet
         if (receivedValue <= currentValue)
             return true;
 
+        return false;
+    }
+
+    public bool TryGetValue(CurrencyType currencyType, out ReactiveVariable<int> value)
+    {
+        foreach (KeyValuePair<CurrencyType, ReactiveVariable<int>> item in _valuesOfCurrencies)
+        {
+            if (item.Key == currencyType)
+            {
+                value = item.Value;
+                return true;
+            }
+        }
+
+        value = default;
         return false;
     }
 
